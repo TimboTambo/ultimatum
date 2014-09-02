@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+{% block extra_css %}
+  <link type="text/css" rel="stylesheet" href="{% static "assets/css/register_success.css" %}"/>
+{% endblock %}
+
+{% block title %}Registered | Ultimatum{% endblock %}
+{% block navbar %}{% endblock %}
+{% block body_title %}
+<div id="title">
+    <h1>Register Success</h1>
+</div>
+<hr/>
+{% endblock %}
+
+
+{% block content %}
+<div id="page">
+    <h2>You have successfully registered!</h2>
+    <p>Click <a href='/accounts/login/'>here</a> to login with your new account.</p>
+</div>
+{% endblock %}
+
+{% block footer %}
+{% endblock %}
+
+{% block scripts %}
+{% endblock %}

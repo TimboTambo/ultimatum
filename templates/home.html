@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block extra_css %}
+  <link type="text/css" rel="stylesheet" href="{% static "assets/css/home.css" %}"/>
+{% endblock %}
+
+{% block title %}Home | Ultimatum{% endblock %}
+
+
+{% block body_title %}
+<div id="title">
+    <h1>Home</h1>
+</div>
+<hr/>
+{% endblock %}
+
+{% block content %}
+{% if message %}
+<div id="page">
+<div id="login_confirmation">
+	<h2>{{ message }}</h2>
+    <br/>
+    <br/>
+</div>
+{% endif %}
+<div class="row">
+<div class="col-md-4"></div>
+<div class="col-md-4" id="links">
+    <p>Click <a href='/choices/create_choice/'>here</a> to create an ultimatum choice.</p>
+</div>
+<div class="col-md-4"></div></div>
+</div>
+{% endblock %}
+
+{% block footer %}
+<p style="text-align: center">Click <a href='/accounts/logout/'>here</a> to logout.</p>
+{% endblock %}
+
+
+{% block scripts %}
+{% endblock %}

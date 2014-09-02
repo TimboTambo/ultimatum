@@ -1,0 +1,15 @@
+# Django
+Django>=1.6,<1.7
+
+django-denorm==0.2.0
+
+South==0.8.2
+
+flickrapi # needed for django-scaffold
+django-scaffolding==0.2.3
+drf-extensions==0.2.3
+django-extensions==1.3.6
+djangorestframework
+
+reportlab==3.1.8 # for pdf creation
+Pillow==2.5.0 # for imaging

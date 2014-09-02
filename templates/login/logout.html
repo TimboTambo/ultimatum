@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+{% block extra_css %}
+  <link type="text/css" rel="stylesheet" href="{% static "assets/css/login.css" %}"/>
+{% endblock %}
+
+{% block title %}Logged Out | Ultimatum{% endblock %}
+{% block navbar %}{% endblock %}
+{% block body_title %}
+<div id="title">
+    <h1>Logged Out</h1>
+</div>
+<hr/>
+{% endblock %}
+
+
+{% block content %}
+<div id="page">
+    <h2>You have successfully logged out.</h2>
+    <p>Click <a href='/accounts/login/'>here</a> to log in again.</p>
+</div>
+{% endblock %}
+
+{% block footer %}
+{% endblock %}
+
+{% block scripts %}
+{% endblock %}

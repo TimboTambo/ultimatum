@@ -1,0 +1,17 @@
+
+#intro {
+    text-align: left;
+    padding-left: 60px;
+}
+
+#login_button {
+    margin-top: 100px;
+    height: 80px;
+    width: 200px;
+    font-size: 30px;
+}
+
+#login_container {
+    margin-top: -100px;
+    margin-bottom: auto;
+}

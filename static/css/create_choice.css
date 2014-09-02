@@ -1,0 +1,9 @@
+#question_container {
+    text-align: center;
+}
+
+#option1, #option2 {
+    height: 600px;
+    border: 2px solid #FF7D0F;
+}
+

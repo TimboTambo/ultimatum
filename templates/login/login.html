@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block extra_css %}
+  <link type="text/css" rel="stylesheet" href="{% static "assets/css/login.css" %}"/>
+{% endblock %}
+
+{% block title %}Login | Ultimatum{% endblock %}
+{% block navbar %}{% endblock %}
+{% block body_title %}
+<div id="title">
+    <h1>Login</h1>
+</div>
+<hr/>
+{% endblock %}
+
+
+{% block content %}
+<div id="page">
+	{% if form.errors %}
+		<p class='error'>Sorry, that's not a valid username or password</p>
+	{% endif %}
+
+	<form action='/accounts/auth/' method='post'>{% csrf_token %}
+	
+	<table><tbody>
+		{% if error %}<tr><td></td><td style="text-align: left">{{ error }}</td></tr>{% endif %}
+		<tr><td><label for='username'>User name:</label></td>
+		<td><input type='text' name='username' value='{{username}}' id='username'></td></tr>
+		<tr><td><label for='password'>Password:</label></td>
+		<td><input type='password' name='password' value='' id='password'></td></tr>
+		<tr><td></td><td><a href="/accounts/register/"><button type="button" id="register">Register</button></a>
+		<input type='submit' value='Login' /></td></tr>
+		</tbody></table>
+	</form>
+</div>
+{% endblock %}
+
+{% block footer %}
+{% endblock %}
+
+{% block scripts %}
+{% endblock %}

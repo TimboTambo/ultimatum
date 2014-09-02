@@ -1,0 +1,117 @@
+fonts {
+    font-family: "Times New Roman", Times, serif;
+    font-style: italic;
+    font-size: 2.5em;
+    font-size: 100%; /*for body */
+    font-weight: bold;
+    color: red;
+}
+
+text {
+    text-align: center;
+    text-align: justify;
+    text-decoration: underline; /* don't underline non link text */
+    text-decoration: none;   
+    text-transform: uppercase;
+    text-transform: capitalize;
+    text-indent: 50px;
+}
+
+backgrounds {
+    background-color: #b0c4de;
+    background-image: url("paper.gif");
+    /* background image always repeated horiz and vert. The following
+    repeats only horiz */
+    background-repeat: repeat-x;
+    background-repeat: no-repeat;
+    background-position: right top;
+    background: #ffffff url("img_tree.png") no-repeat right top; /*combined*/    
+}
+
+
+a:link /*normal, unvisited link*/{
+    
+    } 
+
+a:visited /*link the user has visited*/{
+
+}
+
+a:hover /*a link when the user mouses over it*/ {
+    
+}
+
+a:active /*a link the moment it is clicked*/ {
+
+}
+
+
+ul.a {
+    list-style-type: circle;
+    list-style-type: square;
+}
+
+
+tables {
+    border: 1px solid black;
+    border-collapse: collapse;
+    width: 100%;
+    height: 50px;
+    text-align: right;
+    vertical-align: bottom;
+    padding: 15px;
+    background-color: green;    
+}
+
+box {
+    width: 220px;
+    padding: 10px;
+    border: 5px solid gray;
+    margin: 0px;
+}
+
+borders {
+    border-style: solid;
+    border-style: groove;
+    border-style: double;
+    border-style: ridge;
+}
+
+margins {
+    margin: 100px 50px; /*(top and bottom or can specify all 4 separately)*/
+}
+
+controlling_elements {
+    visibility: hidden;
+    display: inline;
+    display: block;
+}
+
+positioning {
+    position: fixed;
+    top: 30px;
+    right: 5px;
+
+    position: relative;
+    left: -20px;
+
+    position: absolute;
+    left: 100px;
+    top: 150px;
+
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    z-index: -1;
+}
+
+
+float /*for wrapping elements and photos*/{
+    float: right;    
+}
+
+
+align_center {
+    margin-left: auto;
+    margin-right: auto;
+}

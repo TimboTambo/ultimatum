@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block extra_css %}
+  <link type="text/css" rel="stylesheet" href="{% static "assets/css/register.css" %}"/>
+{% endblock %}
+
+{% block title %}Register | Ultimatum{% endblock %}
+{% block navbar %}{% endblock %}
+{% block body_title %}
+<div id="title">
+    <h1>Register</h1>
+</div>
+<hr/>
+{% endblock %}
+
+
+
+{% block content %}
+<div id="page">
+    <div id="register_table">
+	<form action='/accounts/register/' method='post'>{% csrf_token %}
+    {% if error %}{{ error }}{% endif %}
+	<table><tbody><tr><td>{{ form.username.label }}</td><td>{{ form.username }}</td></tr>
+    <tr><td>{{ form.email.label }}:</td><td>{{ form.email }}</td></tr>
+    <tr><td>{{ form.password1.label }}:</td><td>{{ form.password1 }}</td></tr>
+    <tr><td>{{ form.password2.label }}:</td><td>{{ form.password2 }}</td></tr>
+    <tr><td></td><td><input id="submit" type='submit' value='Register' /></td></tr>
+    </tbody></table>
+	</form>
+    </div>
+</div>
+{% endblock %}
