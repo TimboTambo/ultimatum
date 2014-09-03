@@ -1,7 +1,5 @@
 from django.conf.urls import patterns, include, url
-
 from django.contrib import admin
-from .views import *
 
 admin.autodiscover()
 
@@ -14,6 +12,7 @@ urlpatterns = patterns('',
 urlpatterns += patterns('ultimatum.views',
     # index.html is often used as default homepage address
     # and every sub address, e.g. events/index.html
+    # TODO: need to update!
     url('^$', 'splash'),
     url(r'^welcome/$', 'welcome'),
     url(r'^home/$', 'home'),

@@ -1,19 +1,16 @@
-from urllib2 import urlopen, URLError
-
 from django.utils import timezone
-from django.contrib import auth
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User
 from django.core.context_processors import csrf
 from django.http import Http404, HttpResponse, HttpResponseRedirect, HttpResponseNotFound
 from django.shortcuts import render_to_response, redirect, get_object_or_404
-from django.template import Context, RequestContext
+from django.template import Context
 from django.template.loader import get_template
-from django.utils.http import urlencode
 
 from choices.models import Choice
 from choices.forms import ChoiceForm, VoteForm
 
+
+@login_required
 def create_choice(request):
     args = {}
     this_user = request.user.siteuser
@@ -24,7 +21,7 @@ def create_choice(request):
             choice.created_by = this_user
             choice.time_created = timezone.now()
             choice.save()
-            # m2m needs to be saved manually:
+            # m2m needs to be saved manually after a partial save of instance:
             #https://docs.djangoproject.com/en/dev/topics/forms/modelforms/#the-save-method
             form.save_m2m()
             return HttpResponseRedirect('/choices/submitted/')
@@ -36,11 +33,13 @@ def create_choice(request):
     return render_to_response('choices/create_choice.html', args)
 
 
+@login_required
 def submitted(request):
     args = {'choice':Choice.objects.filter(created_by=request.user).reverse()[0]}
     return render_to_response('choices/submitted_choice.html', args)
 
 
+@login_required
 def view_ultimatums(request):
     args = {}
     this_user = request.user.siteuser
@@ -48,6 +47,8 @@ def view_ultimatums(request):
     args['other_ultimatums'] = Choice.objects.filter(share_list=this_user)
     return render_to_response('choices/view_ultimatums.html', args)
 
+
+@login_required
 def view_ultimatum(request, id=None):
     args = {}
     this_user = request.user.siteuser
@@ -65,8 +66,6 @@ def view_ultimatum(request, id=None):
             args["message"] = "Thank you for voting."
             return render_to_response('choices/view_ultimatum.html', args)
 
-    args['choice'] = this_choice
-
     if this_choice.expired:
         args['votes_1'] = len(this_choice.voted_1.all())
         args['votes_2'] = len(this_choice.voted_2.all())
@@ -81,8 +80,10 @@ def view_ultimatum(request, id=None):
                 args["message"] = "You have not yet voted."
             else:
                 args["message"] = "You have already voted"
-        
+    
     else:
         args["message"] = "Please come back later to review the results of your question."
 
+    args['choice'] = this_choice
+    args.update(csrf(request))
     return render_to_response('choices/view_ultimatum.html', args)    

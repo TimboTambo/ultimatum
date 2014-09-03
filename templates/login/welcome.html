@@ -1,52 +1,32 @@
 {% extends "base.html" %}
 {% load staticfiles %}
 {% load template_library %}
+
 {% block extra_css %}
   <link type="text/css" rel="stylesheet" href="{% static "assets/css/welcome.css" %}"/>
 {% endblock %}
 
-
-{% block head %}
-{% endblock %}
-
 {% block title %}
-Welcome | Ultimatum
+Welcome
 {% endblock %}
+
 {% block navbar %}{% endblock %}
 
 {% block body_title %}
-<div class="row">
-    <div id="title" class="col-md-12">
-      <h1>Welcome to Ultimatum!</h1>
-    </div>
-</div>
-<hr/>
+Welcome to Ultimatum!
 {% endblock %}
-
 
 {% block content %}
-<div id="page">
-    <div class="row">
-        <div id="intro" class="col-md-4">
-            <h2>Organise and socialise</h2>
-            <p>Ultimatum takes the pain and hassle out of making choices.</p>
-        </div>
-        <div id="login_container" class="col-md-4">
-            <a href="/accounts/login/">
-                <button id="login_button" type="button">Login</button>
-            </a>
-        </div>
-        <div class="col-md-4"></div>
+<div class="row">
+    <div id="intro" class="col-md-4">
+        <h2>Organise and socialise</h2>
+        <p>Ultimatum takes the pain and hassle out of making choices.</p>
     </div>
-</div>
-{% endblock %}
-
-
-{% block footer %}
-{% endblock %}
-
-
-{% block scripts %}
-<script>
-</script>
+    <div id="login_container" class="col-md-4">
+        <a href="/accounts/login/">
+            <button id="login_button" type="button">Login</button>
+        </a>
+    </div>
+    <div class="col-md-4"></div>
+</div> <!--row-->
 {% endblock %}

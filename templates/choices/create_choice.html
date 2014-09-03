@@ -1,76 +1,72 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
+{% load template_library %}
 
 {% block extra_css %}
   <link type="text/css" rel="stylesheet" href="{% static "assets/css/create_choice.css" %}"/>
 {% endblock %}
 
-{% block title %}Create Choice | Ultimatum{% endblock %}
-
+{% block title %}
+Create Choice
+{% endblock %}
 
 {% block body_title %}
-<div id="title">
-    <h1>Create your choice</h1>
-</div>
-<hr/>
+Create your choice
 {% endblock %}
 
 {% block content %}
-<div id="page">
 <form id = 'choice_form' action="/choices/create_choice/" method="post" enctype='multipart/form-data'>{% csrf_token %}
-<div class="row" id="question_container">
-    {{ form.non_field_errors }}
-    {{ form.question.errors }}
-    {{ form.question.label }}:{{ form.question }}
-</div> <!--row-->
-<hr/>
 
-<div class="row" id="option_container">
-<div class="col-md-1"></div>
-<div class="col-md-4" id="option1">
-    {{ form.option1.errors }}
-    {{ form.option1.label }}:{{ form.option1 }}
-</div>
-<div class="col-md-2"></div>
-<div class="col-md-4" id="option2">
-    {{ form.option2.errors }}
-    {{ form.option2.label }}:{{ form.option2 }}
-</div>
-<div class="col-md-1"></div>
-</div> <!--row-->
+    <div class="row" id="question_container">
+        {{ form.non_field_errors }}
+        {{ form.question.errors }}
+        {{ form.question.label }}:{{ form.question }}
+    </div> <!--row-->
+    <hr />
 
-<div class="row" id="time_container">
-<div class="col-md-3"></div>
-<div class="col-md-6" id="timer">
-    {{ form.time_limit.errors }}
-    {{ form.time_limit.label }}:{{ form.time_limit }}
-</div>
-<div class="col-md-3"></div>
-</div> <!--row-->
+    <div class="row" id="option_container">
+        <div class="col-md-1"></div>
+        <div class="col-md-4" id="option1">
+            {{ form.option1.errors }}
+            {{ form.option1.label }}:{{ form.option1 }}
+        </div>
+        <div class="col-md-2"></div>
+        <div class="col-md-4" id="option2">
+            {{ form.option2.errors }}
+            {{ form.option2.label }}:{{ form.option2 }}
+        </div>
+        <div class="col-md-1"></div>
+    </div> <!--row-->
 
-<div class="row" id="share_with_container">
-<div class="col-md-3"></div>
-<div class="col-md-6" id="share_with">
-    {{ form.share_with.errors }}
-    {{ form.share_with.label }}:{{ form.share_with }}
-</div>
-<div class="col-md-3"></div>
-</div> <!--row-->
+    <div class="row" id="time_container">
+        <div class="col-md-3"></div>
+        <div class="col-md-6" id="timer">
+            {{ form.time_limit.errors }}
+            {{ form.time_limit.label }}:{{ form.time_limit }}
+        </div>
+        <div class="col-md-3"></div>
+    </div> <!--row-->
 
-<div class="row" id="share_list_container">
-<div class="col-md-3"></div>
-<div class="col-md-6" id="share_list">
-    {{ form.share_list.errors }}
-    {{ form.share_list.label }}:{{ form.share_list }}
-</div>
-<div class="col-md-3"></div>
-</div> <!--row-->
+    <div class="row" id="share_with_container">
+        <div class="col-md-3"></div>
+        <div class="col-md-6" id="share_with">
+            {{ form.share_with.errors }}
+            {{ form.share_with.label }}:{{ form.share_with }}
+        </div>
+        <div class="col-md-3"></div>
+    </div> <!--row-->
 
+    <div class="row" id="share_list_container">
+        <div class="col-md-3"></div>
+        <div class="col-md-6" id="share_list">
+            {{ form.share_list.errors }}
+            {{ form.share_list.label }}:{{ form.share_list }}
+        </div>
+        <div class="col-md-3"></div>
+    </div> <!--row-->
 
-<input type='submit' value='submit' id='submit'/>
+    <input type='submit' value='submit' id='submit'/>
 </form>
-</div> <!--page-->
-
 {% endblock %}
 
 {% block footer %}
@@ -80,6 +76,7 @@
 
 {% block scripts %}
 <script>
+/* Shows friend list if user selects that they only want to share with some*/
 $('#id_share_with').click(function() {
     if($(this).val()=="some") {
         $('#share_list').css("display", "block");

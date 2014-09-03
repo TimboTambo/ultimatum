@@ -1,5 +1,4 @@
 from django.conf.urls import patterns, include, url
-import choices
 
 
 urlpatterns = patterns('choices.views',

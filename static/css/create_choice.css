@@ -1,5 +1,5 @@
-#question_container {
-    text-align: center;
+img {
+    width: 500px;
 }
 
 #option1, #option2 {
@@ -7,6 +7,11 @@
     border: 2px solid #FF7D0F;
 }
 
+#question_container {
+    text-align: center;
+}
+
 #share_list {
     display: none;
 }
+

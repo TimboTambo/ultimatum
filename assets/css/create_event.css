@@ -1,0 +1,49 @@
+.circle {
+    position: absolute; /*fixed means elements can overlap*/
+    z-index: 3;
+}
+
+.field {
+    position: absolute;
+    z-index: 10;
+    display: none;
+}
+
+#date_field select {
+    color: #FF7D0F;
+    background-color: #323130;
+    border: none;
+    -webkit-appearance: textfield;
+    appearance: textfield;
+    -moz-appearance: textfield;
+}
+
+#location_field select {
+    color: #FF7D0F;
+    background-color: #323130;
+    border: none;
+    -webkit-appearance: textfield;
+    appearance: textfield;
+    -moz-appearance: textfield;
+}
+
+#description_field textarea {
+    color: #323130;
+    background-color: #FF7D0F;
+    border: none;
+}
+
+#submit {
+    margin-top: 10px;
+    height: 25px;
+    width: 90px;
+    font-size: 16px;
+}
+
+#event_info_container {
+    position: static;
+    display: none;
+    text-align: left;
+    border: 2px solid #FF7D0F;
+    width: 200px;
+}

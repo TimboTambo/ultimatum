@@ -1,0 +1,16 @@
+table {
+    text-align: right;
+    margin: auto;
+}
+
+#register_table {
+    margin: auto;
+}
+
+input {
+    padding-left: 4px;
+}
+
+tr td {
+    padding-right: 5px;
+}

@@ -1,8 +1,22 @@
 {% extends 'base.html' %}
+{% load staticfiles %}
+{% load template_library %}
+
+{% block extra_css %}
+  <link type="text/css" rel="stylesheet" href="{% static "assets/css/invalid_login.css" %}"/>
+{% endblock %}
+
+{% block title %}
+Invalid Login
+{% endblock %}
+
+{% block navbar %}{% endblock %}
+
+{% block body_title %}
+Invalid Login
+{% endblock %}
 
 {% block content %}
-
-	<h2>Your login details are invalid!</h2>
-	<p>Click <a href='/accounts/login/'>here</a> to login again.</p>
-
+<h2>Your login details are invalid!</h2>
+<p>Click <a href='/accounts/login/'>here</a> to login again.</p>
 {% endblock %}

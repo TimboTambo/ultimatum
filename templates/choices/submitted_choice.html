@@ -1,22 +1,21 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
+{% load template_library %}
 
 {% block extra_css %}
-  <link type="text/css" rel="stylesheet" href="{% static "assets/css/view_choice.css" %}"/>
+  <link type="text/css" rel="stylesheet" href="{% static "assets/css/view_ultimatum.css" %}"/>
 {% endblock %}
 
-{% block title %}View Choice | Ultimatum{% endblock %}
-
+{% block title %}
+View Choice
+{% endblock %}
 
 {% block body_title %}
-<div id="title">
-    <h1>View your choice</h1>
-</div>
-<hr/>
+View your choice
 {% endblock %}
 
 {% block content %}
-<div id="page">
+
 Your choice was submitted.
 <div class="row" id="question_container">
     Your question: {{ choice.question }}
@@ -24,35 +23,26 @@ Your choice was submitted.
 <hr/>
 
 <div class="row" id="option_container">
-<div class="col-md-1"></div>
-<div class="col-md-4" id="option1">
-    <img src='/static/assets/{{ choice.option1}}' width='500'/>
-</div>
-<div class="col-md-2"></div>
-<div class="col-md-4" id="option2">
-    <img src='/static/assets/{{ choice.option2}}' width='500'/>
-</div>
-<div class="col-md-1"></div>
-</div>
+    <div class="col-md-1"></div>
+    <div class="col-md-4" id="option1">
+        <img src='/static/assets/{{ choice.option1}}'/>
+    </div>
+    <div class="col-md-2"></div>
+    <div class="col-md-4" id="option2">
+        <img src='/static/assets/{{ choice.option2}}'/>
+    </div>
+    <div class="col-md-1"></div>
+</div> <!--row-->
 
 <div class="row" id="time_container">
-<div class="col-md-3"></div>
-<div class="col-md-6" id="timer">
+    <div class="col-md-3"></div>
+    <div class="col-md-6" id="timer">   
     
-</div>
-<div class="col-md-3"></div>
-</div>
-</div>
-
+    </div>
+    <div class="col-md-3"></div>
+</div> <!--row-->
 {% endblock %}
 
 {% block footer %}
 <p style="text-align: center">Click <a href='/accounts/logout/'>here</a> to logout.</p>
-{% endblock %}
-
-
-{% block scripts %}
-<script>
-/* http://www.codeproject.com/Articles/664032/Creating-a-File-Uploader-Using-JavaScript-and-HTML */
-</script>
 {% endblock %}
