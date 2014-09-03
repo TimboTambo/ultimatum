@@ -53,6 +53,7 @@ def view_ultimatum(request, id=None):
     args = {}
     this_user = request.user.siteuser
     this_choice = get_object_or_404(Choice, pk=id)
+    args['choice'] = this_choice
 
     if request.method == 'POST':
         form = VoteForm(request.POST)
@@ -84,6 +85,6 @@ def view_ultimatum(request, id=None):
     else:
         args["message"] = "Please come back later to review the results of your question."
 
-    args['choice'] = this_choice
+
     args.update(csrf(request))
     return render_to_response('choices/view_ultimatum.html', args)    

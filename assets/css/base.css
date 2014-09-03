@@ -3,31 +3,6 @@ body {
     background-color: #323130;
 }
 
-hr {
-    border: 3px solid #FF7D0F;
-}
-
-#title {
-    margin-left: auto;
-    margin-right: auto;
-    text-align: center;
-    font-weight: bold;
-}
-
-
-#page {
-    text-align: center;
-    height: auto;
-    padding: 200px auto 200px auto;
-}
-
-
-input {
-    color: #323130;
-    background-color: #FF7D0F;
-}
-
-
 button, input[type="submit"] {
     color: #323130;
     background-color: #FF7D0F;
@@ -47,6 +22,14 @@ button:hover, input[type="submit"]:hover {
     border: 2px solid #FF7D0F;
 }
 
+hr {
+    border: 3px solid #FF7D0F;
+}
+
+input {
+    color: #323130;
+    background-color: #FF7D0F;
+}
 
 #navbar button {
     margin-left: 10px;
@@ -54,3 +37,20 @@ button:hover, input[type="submit"]:hover {
     width: auto;
     font-size: 16px;
 }
+
+#page {
+    text-align: center;
+    height: auto;
+    padding: 200px auto 200px auto;
+}
+
+#title {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    font-weight: bold;
+}
+
+
+
+
