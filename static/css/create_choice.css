@@ -7,3 +7,6 @@
     border: 2px solid #FF7D0F;
 }
 
+#share_list {
+    display: none;
+}

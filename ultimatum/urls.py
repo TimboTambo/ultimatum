@@ -7,6 +7,7 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     (r'^choices/', include('choices.urls')),
+    (r'^users/', include('users.urls')),
     (r'^admin/', include(admin.site.urls)),
 )
 
@@ -21,5 +22,5 @@ urlpatterns += patterns('ultimatum.views',
     url(r'^accounts/logout/$', 'logout'),
     url(r'^accounts/loggedin/$', 'home', {"message": "Welcome User, you are now logged in."}),
     url(r'^accounts/register/$', 'register_user'),
-    url(r'^accounts/register_success/$', 'register_success'),
+    url(r'^accounts/register_success/$', 'home', {"message": "Welcome User, your registration was successful."}),
 )

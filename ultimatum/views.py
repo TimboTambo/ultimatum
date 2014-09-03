@@ -11,7 +11,7 @@ from django.template.loader import get_template
 from django.utils.http import urlencode
 
 from ultimatum.forms import LoginForm, RegistrationForm
-
+from users.models import SiteUser
 #from rest_framework.renderers import JSONRenderer
 #from rest_framework.parsers import JSONParser
 
@@ -25,7 +25,6 @@ def welcome(request):
 def login(request):
     error = None
     username = ''
-    print "request.method", request.method
     if request.method == "POST":
         username = request.POST.get('username', '')
         password = request.POST.get('password', '')
@@ -43,7 +42,6 @@ def login(request):
 
 @login_required
 def home(request, message=None):
-    print "Message", message
     if message:
         message = message.replace("User", request.user.username.title())
     return render_to_response('home.html',
@@ -63,7 +61,12 @@ def register_user(request):
     if request.method == 'POST':
         form = RegistrationForm(request.POST)
         if form.is_valid():
-            form.save()
+            new_user = form.save()
+            SiteUser.objects.create(user=new_user)
+            username = request.POST.get('username', '')
+            password = request.POST.get('password1', '')
+            user = auth.authenticate(username=username, password=password)
+            auth.login(request, user)
             return HttpResponseRedirect('/accounts/register_success')
         else:
             args["error"] = "The information you entered was not valid. Please try again."
@@ -72,7 +75,7 @@ def register_user(request):
         args['form'] = RegistrationForm()
 
     args.update(csrf(request))
-    return render_to_response('login/egister.html', args)
+    return render_to_response('login/register.html', args)
 
 
 def register_success(request):

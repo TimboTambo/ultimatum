@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block extra_css %}
+  <link type="text/css" rel="stylesheet" href="{% static "assets/css/view_ultimatums.css" %}"/>
+{% endblock %}
+
+{% block title %}View Choices | Ultimatum{% endblock %}
+
+
+{% block body_title %}
+<div id="title">
+    <h1>View Choices</h1>
+</div>
+<hr/>
+{% endblock %}
+
+{% block content %}
+<div id="page">
+<div id="user_created">
+Choices that you have created: <br />
+{% for ultimatum in user_ultimatums %}
+<a href="/choices/view_ultimatum/{{ ultimatum.pk }}">{{ ultimatum }}</a><br />
+{% endfor %}
+</div>
+<br />
+<div id="other_created">
+Choices that others have invited you to vote on:<br /> 
+{% for ultimatum in other_ultimatums %}
+<a href="/choices/view_ultimatum/{{ ultimatum.pk }}">{{ ultimatum }}</a><br />
+{% endfor %}
+</div>
+
+</div>
+</div> <!--page-->
+
+{% endblock %}
+
+{% block footer %}
+<p style="text-align: center">Click <a href='/accounts/logout/'>here</a> to logout.</p>
+{% endblock %}
+
+
+{% block scripts %}
+<script>
+/* http://www.codeproject.com/Articles/664032/Creating-a-File-Uploader-Using-JavaScript-and-HTML */
+</script>
+{% endblock %}

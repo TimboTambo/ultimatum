@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block extra_css %}
+  <link type="text/css" rel="stylesheet" href="{% static "assets/css/add_friends.css" %}"/>
+{% endblock %}
+
+{% block title %}Add Friends | Ultimatum{% endblock %}
+
+
+{% block body_title %}
+<div id="title">
+    <h1>Add Friends</h1>
+</div>
+<hr/>
+{% endblock %}
+
+{% block content %}
+<div id="page" style="height: auto">
+<form id = 'friend_form' action="/users/add_friends/" method="post" enctype='multipart/form-data'>{% csrf_token %}
+{{ form.friends }}
+<input type='submit' value='submit' id='submit'/>
+</form>
+</div>
+{% endblock %}
+
+{% block footer %}
+<p style="text-align: center">Click <a href='/accounts/logout/'>here</a> to logout.</p>
+{% endblock %}
+
+
+{% block scripts %}
+{% endblock %}

@@ -17,7 +17,7 @@ hr {
 
 #page {
     text-align: center;
-    height: 300px;
+    height: auto;
     padding: 200px auto 200px auto;
 }
 

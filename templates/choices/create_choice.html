@@ -5,7 +5,7 @@
   <link type="text/css" rel="stylesheet" href="{% static "assets/css/create_choice.css" %}"/>
 {% endblock %}
 
-{% block title %}Create Choice | deciDial{% endblock %}
+{% block title %}Create Choice | Ultimatum{% endblock %}
 
 
 {% block body_title %}
@@ -22,7 +22,7 @@
     {{ form.non_field_errors }}
     {{ form.question.errors }}
     {{ form.question.label }}:{{ form.question }}
-</div>
+</div> <!--row-->
 <hr/>
 
 <div class="row" id="option_container">
@@ -37,7 +37,7 @@
     {{ form.option2.label }}:{{ form.option2 }}
 </div>
 <div class="col-md-1"></div>
-</div>
+</div> <!--row-->
 
 <div class="row" id="time_container">
 <div class="col-md-3"></div>
@@ -46,10 +46,30 @@
     {{ form.time_limit.label }}:{{ form.time_limit }}
 </div>
 <div class="col-md-3"></div>
+</div> <!--row-->
+
+<div class="row" id="share_with_container">
+<div class="col-md-3"></div>
+<div class="col-md-6" id="share_with">
+    {{ form.share_with.errors }}
+    {{ form.share_with.label }}:{{ form.share_with }}
 </div>
+<div class="col-md-3"></div>
+</div> <!--row-->
+
+<div class="row" id="share_list_container">
+<div class="col-md-3"></div>
+<div class="col-md-6" id="share_list">
+    {{ form.share_list.errors }}
+    {{ form.share_list.label }}:{{ form.share_list }}
+</div>
+<div class="col-md-3"></div>
+</div> <!--row-->
+
+
 <input type='submit' value='submit' id='submit'/>
 </form>
-</div>
+</div> <!--page-->
 
 {% endblock %}
 
@@ -60,6 +80,10 @@
 
 {% block scripts %}
 <script>
-/* http://www.codeproject.com/Articles/664032/Creating-a-File-Uploader-Using-JavaScript-and-HTML */
+$('#id_share_with').click(function() {
+    if($(this).val()=="some") {
+        $('#share_list').css("display", "block");
+    }
+})
 </script>
 {% endblock %}

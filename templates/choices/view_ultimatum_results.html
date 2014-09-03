@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block extra_css %}
+  <link type="text/css" rel="stylesheet" href="{% static "assets/css/view_ultimatum.css" %}"/>
+{% endblock %}
+
+{% block title %}View Results | Ultimatum{% endblock %}
+
+
+{% block body_title %}
+<div id="title">
+    <h1>View Results</h1>
+</div>
+<hr/>
+{% endblock %}
+
+{% block content %}
+<div id="page">
+<div class="row" id="question_container">
+    Voting on this ultimatum question has now closed.<br />
+    Results: <br />
+    Votes for A: 
+    {% if choice.votes_1 %}{{ choice.votes_1 }}
+    {% else %}0{% endif %}<br />
+    Votes for B: 
+    {% if choice.votes_2 %}{{ choice.votes_2 }}
+    {% else %}0{% endif %}<br />
+    Question: {{ choice.question }}
+</div>
+<hr/>
+
+<div class="row" id="option_container">
+<div class="col-md-1"></div>
+<div class="col-md-4" id="option1">
+    <img src='/static/assets/{{ choice.option1}}' width='500'/>
+</div>
+<div class="col-md-2"></div>
+<div class="col-md-4" id="option2">
+    <img src='/static/assets/{{ choice.option2}}' width='500'/>
+</div>
+<div class="col-md-1"></div>
+</div>
+</div> <!--row-->
+</div> <!--page-->
+
+{% endblock %}
+
+{% block footer %}
+<p style="text-align: center">Click <a href='/accounts/logout/'>here</a> to logout.</p>
+{% endblock %}
+
+
+{% block scripts %}
+<script>
+/* http://www.codeproject.com/Articles/664032/Creating-a-File-Uploader-Using-JavaScript-and-HTML */
+</script>
+{% endblock %}

@@ -21,6 +21,12 @@
     <div id="register_table">
 	<form action='/accounts/register/' method='post'>{% csrf_token %}
     {% if error %}{{ error }}{% endif %}
+    {% for error in form.non_field_errors %}
+        {{ error }}
+    {% endfor %}
+    {% for field in form %}
+        {{ field.errors }}
+    {% endfor %}
 	<table><tbody><tr><td>{{ form.username.label }}</td><td>{{ form.username }}</td></tr>
     <tr><td>{{ form.email.label }}:</td><td>{{ form.email }}</td></tr>
     <tr><td>{{ form.password1.label }}:</td><td>{{ form.password1 }}</td></tr>

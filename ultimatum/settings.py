@@ -41,6 +41,7 @@ INSTALLED_APPS = (
     'denorm',
     'rest_framework',
     'choices',
+    'users',
     'template_library',
 )
 
