@@ -18,18 +18,18 @@ View Results
     Voting on this ultimatum question has now closed.<br />
     Results: <br />
     <h2>
-    {% if choice.votes_1 > choice.votes_2 %}Option A Won!
+    {% if votes_1 > votes_2 %}Option A Won!
     {% else %} 
-        {% if choice.votes_2 > choice.votes_1 %}Option B Won!
+        {% if votes_2 > votes_1 %}Option B Won!
         {% else %}It was a draw!
         {% endif %}
     {% endif %}
     </h2>
-    Votes for A: 
-    {% if choice.votes_1 %}{{ choice.votes_1 }}
+    Votes for A:
+    {% if votes_1 %}{{ votes_1 }}
     {% else %}0{% endif %}<br />
     Votes for B: 
-    {% if choice.votes_2 %}{{ choice.votes_2 }}
+    {% if votes_2 %}{{ votes_2 }}
     {% else %}0{% endif %}<br />
     Question: {{ choice.question }}
 </div>

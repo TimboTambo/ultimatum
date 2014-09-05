@@ -83,6 +83,8 @@ def view_ultimatum(request, id=None):
     if this_choice.expired:
         args['votes_1'] = len(this_choice.voted_1.all())
         args['votes_2'] = len(this_choice.voted_2.all())
+        print "Votes for 1", args["votes_1"]
+        print "Votes for 2", args["votes_2"]
         args['commentsA'] = this_choice.comment_set.filter(choice__voted_1 = F('user'))
         args['commentsB'] = this_choice.comment_set.filter(choice__voted_2 = F('user'))
         return render_to_response('choices/view_ultimatum_results.html', args)
