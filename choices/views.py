@@ -1,13 +1,14 @@
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
 from django.core.context_processors import csrf
+from django.db.models import F
 from django.http import Http404, HttpResponse, HttpResponseRedirect, HttpResponseNotFound
 from django.shortcuts import render_to_response, redirect, get_object_or_404
 from django.template import Context
 from django.template.loader import get_template
 
-from choices.models import Choice
-from choices.forms import ChoiceForm, VoteForm
+from choices.models import Choice, Comment
+from choices.forms import ChoiceForm, VoteForm, CommentForm
 
 
 @login_required
@@ -43,9 +44,15 @@ def submitted(request):
 def view_ultimatums(request):
     args = {}
     this_user = request.user.siteuser
-    args['user_ultimatums'] = Choice.objects.filter(created_by=this_user)
-    args['other_ultimatums'] = Choice.objects.filter(share_list=this_user)
+    args['user_ultimatums'] = sorted(Choice.objects.filter(created_by=this_user), key=sort)
+    args['other_ultimatums'] = sorted(Choice.objects.filter(share_list=this_user), key=sort)
     return render_to_response('choices/view_ultimatums.html', args)
+
+
+def sort(m):
+    if m.time_remaining < 0:
+        return 100000
+    return m.time_remaining
 
 
 @login_required
@@ -55,21 +62,29 @@ def view_ultimatum(request, id=None):
     this_choice = get_object_or_404(Choice, pk=id)
     args['choice'] = this_choice
 
-    if request.method == 'POST':
+    if (request.method == 'POST' and this_user not in this_choice.voted_1.all()
+        and this_user not in this_choice.voted_2.all()):
         form = VoteForm(request.POST)
+        form2 = CommentForm(request.POST)
         if form.is_valid():
             vote = int(form.cleaned_data['vote'])
             if vote==1:
                 this_choice.voted_1.add(this_user)
             elif vote==2:
                 this_choice.voted_2.add(this_user)
-            this_choice.save()    
+            this_choice.save()
+            if form2.is_valid():
+                content = form2.cleaned_data['content']
+                if content:
+                    Comment.objects.create(user=this_user, choice=this_choice, content=content) 
             args["message"] = "Thank you for voting."
             return render_to_response('choices/view_ultimatum.html', args)
 
     if this_choice.expired:
         args['votes_1'] = len(this_choice.voted_1.all())
         args['votes_2'] = len(this_choice.voted_2.all())
+        args['commentsA'] = this_choice.comment_set.filter(choice__voted_1 = F('user'))
+        args['commentsB'] = this_choice.comment_set.filter(choice__voted_2 = F('user'))
         return render_to_response('choices/view_ultimatum_results.html', args)
 
     if not (this_choice.created_by==this_user):
@@ -77,6 +92,9 @@ def view_ultimatum(request, id=None):
             if (this_user not in this_choice.voted_1.all() and 
                 this_user not in this_choice.voted_2.all()):
                 args['form'] = VoteForm()
+                args['form2'] = CommentForm()
+                print "Form1:", args['form']
+                print "Form2:", args['form2']
                 args.update(csrf(request))
                 args["message"] = "You have not yet voted."
             else:

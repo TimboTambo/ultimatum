@@ -17,6 +17,14 @@ View Results
 <div class="row" id="question_container">
     Voting on this ultimatum question has now closed.<br />
     Results: <br />
+    <h2>
+    {% if choice.votes_1 > choice.votes_2 %}Option A Won!
+    {% else %} 
+        {% if choice.votes_2 > choice.votes_1 %}Option B Won!
+        {% else %}It was a draw!
+        {% endif %}
+    {% endif %}
+    </h2>
     Votes for A: 
     {% if choice.votes_1 %}{{ choice.votes_1 }}
     {% else %}0{% endif %}<br />
@@ -38,6 +46,29 @@ View Results
     </div>
     <div class="col-md-1"></div>
     </div>
+</div> <!--row-->
+<div class="row" id="comments_container">
+    <div class="col-md-4"></div>
+    <div class="col-md-4" id="comments">
+        {% if commentsA or commentsB %}
+        <h2 style="text-align: center">Comments</h2>
+            {% if commentsA %}
+            Voted for A: <br/>
+            {% for comment in commentsA %}
+                {{ comment.content }}<br/>
+                {{ comment.user | capfirst }}, {{ comment.time_created }}<br/><br/>
+            {% endfor %}
+            {% endif %}
+            {% if commentsB %}
+            Voted for B: <br/>
+            {% for comment in commentsB %}
+                {{ comment.content }}<br/>
+                {{ comment.user | capfirst }}, {{ comment.time_created|date:"j F \a\t H:i" }}<br/><br/>
+            {% endfor %}
+            {% endif %}
+        {% endif %}
+    </div>
+    <div class="col-md-4"></div>
 </div> <!--row-->
 {% endblock %}
 

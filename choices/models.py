@@ -11,7 +11,7 @@ class Choice(models.Model):
     (10, '10 minutes'),
     (30, '30 minutes'),
     (60, '1 hour'),
-    (3600, '6 hours'))
+    (360, '6 hours'))
 
     SHARE_WITH_CHOICES = (
     ('some', 'Select few'),
@@ -36,6 +36,19 @@ class Choice(models.Model):
         return self.time_limit - time_delta_in_mins
 
     @property
+    def time_remaining_str(self):
+        time_delta_since_created = timezone.now() - self.time_created
+        time_delta_in_mins = time_delta_since_created.seconds/60
+        time_remaining = self.time_limit - time_delta_in_mins
+        if time_remaining > 120:
+            return "{} hours {} minutes".format(str(time_remaining // 60), str(time_remaining % 60))
+        elif time_remaining > 60:
+            return "{} hour {} minutes".format(str(time_remaining // 60), (time_remaining % 60))
+        else:
+            return "{} minutes".format(str(time_remaining))
+
+
+    @property
     def expired(self):
         if self.time_remaining < 0:
             return True
@@ -46,3 +59,15 @@ class Choice(models.Model):
 
     def __unicode__(self):
         return self.question
+ 
+
+class Comment(models.Model):
+    user = models.ForeignKey(SiteUser)
+    choice = models.ForeignKey(Choice)
+    content = models.TextField(max_length=200)
+    time_created = models.DateTimeField(default=timezone.now())
+
+    def __unicode__(self):
+        if len(self.content) > 10:
+            return self.content[:10]
+        return  self.content

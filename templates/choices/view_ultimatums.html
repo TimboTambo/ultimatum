@@ -16,20 +16,36 @@ View Choices
 {% endblock %}
 
 {% block content %}
+{% if user_ultimatums %}
 <div id="user_created">
     Choices that you have created: <br />
     {% for ultimatum in user_ultimatums %}
-        <a href="/choices/view_ultimatum/{{ ultimatum.pk }}">{{ ultimatum }}</a><br />
+        <a href="/choices/view_ultimatum/{{ ultimatum.pk }}">{{ ultimatum }}</a>
+        | {{ ultimatum.time_created |date:"j F \a\t H:i" }} |
+        {% if ultimatum.expired %}
+            Voting closed
+        {% else %}
+            Time remaining: {{ ultimatum.time_remaining_str }}
+        {% endif %}<br />
     {% endfor %}
-    </div>
-    <br />
-    <div id="other_created">
-        Choices that others have invited you to vote on:<br /> 
-        {% for ultimatum in other_ultimatums %}
-            <a href="/choices/view_ultimatum/{{ ultimatum.pk }}">{{ ultimatum }}</a><br />
-        {% endfor %}
-    </div>
 </div>
+<br />
+{% endif %}
+{% if other_ultimatums %}
+<div id="other_created">
+    Choices that others have invited you to vote on:<br /> 
+    {% for ultimatum in other_ultimatums %}
+        <a href="/choices/view_ultimatum/{{ ultimatum.pk }}">{{ ultimatum }}</a>
+        | {{ ultimatum.created_by | capfirst }} | 
+        {{ ultimatum.time_created |date:"j F \a\t H:i" }} |
+        {% if ultimatum.expired %}
+            Voting closed
+        {% else %}
+            Time remaining: {{ ultimatum.time_remaining_str }}
+        {% endif %}<br />
+    {% endfor %}
+</div>
+{% endif %}
 {% endblock %}
 
 {% block footer %}

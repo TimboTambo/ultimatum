@@ -37,12 +37,12 @@ View Choice
 <div class="row" id="time_container">
     <div class="col-md-3"></div>
     <div class="col-md-6" id="timer">
-        Time limit: {{ choice.time_limit }}minutes<br />
-        Time remaining: {{ choice.time_remaining }}minutes
+        Time limit: {{ choice.time_limit }} minutes<br />
+        Time remaining: {{ choice.time_remaining_str }}<br />
         {% if form %}
-            Vote:
-            <form id = 'vote_form' action="/choices/view_ultimatum/{{ choice.pk }}" method="post" enctype='multipart/form-data'>{% csrf_token %}
-                {{form.vote.label}}{{ form.vote }}
+            <form id='vote_form' action="/choices/view_ultimatum/{{ choice.pk }}" method="post">{% csrf_token %}
+                {{ form.vote.label }}: {{ form.vote }}<br/>
+                Comment: {{ form2.content }}<br/><br/>
                 <input type='submit' value='submit' id='submit'/>
             </form>
         {% endif %}

@@ -2,7 +2,7 @@ from django import forms
 from django.forms import ModelForm
 from django.utils.translation import ugettext_lazy as _
 
-from choices.models import Choice
+from choices.models import Choice, Comment
 
 
 class ChoiceForm(ModelForm):
@@ -28,3 +28,12 @@ class ChoiceForm(ModelForm):
 
 class VoteForm(forms.Form):
     vote = forms.ChoiceField(choices=((1, "Option A"), (2, "Option B")))
+
+
+class CommentForm(ModelForm):
+    class Meta:
+        model = Comment
+        fields = ['content']
+        widgets = {
+            'content': forms.Textarea(attrs={'rows':2, 'cols':20}),
+        }

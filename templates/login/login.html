@@ -17,11 +17,14 @@ Login
 {% endblock %}
 
 {% block content %}
-{% if form.errors %}
-	<p class='error'>Sorry, that's not a valid username or password</p>
-{% endif %}
-
 <form action='/accounts/auth/' method='post'>{% csrf_token %}
+	{% for field in form %}
+		{{ field.errors }}
+	{% endfor %}
+	{% for error in form.non_field_errors %}
+		{{ error }}
+	{% endfor %}
+
 	<table><tbody>
 		{% if error %}<tr><td></td><td style="text-align: left">{{ error }}</td></tr>{% endif %}
 		<tr><td><label for='username'>User name:</label></td>
