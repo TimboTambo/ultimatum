@@ -18,8 +18,8 @@ Create your choice
 <form id = 'choice_form' action="/choices/create_choice/" method="post" enctype='multipart/form-data'>{% csrf_token %}
 
     <div class="row" id="question_container">
-        {{ form.non_field_errors }}
-        {{ form.question.errors }}
+        {% if form.non_field_errors %}{{ form.non_field_errors }}<br />{% endif %}
+        {% if form.question.errors %}{{ form.question.errors }}<br />{% endif %}
         {{ form.question.label }}:{{ form.question }}
     </div> <!--row-->
     <hr />
@@ -27,13 +27,21 @@ Create your choice
     <div class="row" id="option_container">
         <div class="col-md-1"></div>
         <div class="col-md-4" id="option1">
-            {{ form.option1.errors }}
-            {{ form.option1.label }}:{{ form.option1 }}
+            {% if form.image1.errors %}{{ form.image1.errors }}<br />{% endif %}
+            {{ form.image1.label }}:{{ form.image1 }} <br />
+            {% if form.text1.errors %}{{ form.text1.errors }}<br />{% endif %}
+            {{ form.text1.label }}:{{ form.text1 }} <br />
+            {% if form.url1.errors %}{{ form.url1.errors }}<br />{% endif %}
+            {{ form.url1.label }}:{{ form.url1 }}
         </div>
         <div class="col-md-2"></div>
         <div class="col-md-4" id="option2">
-            {{ form.option2.errors }}
-            {{ form.option2.label }}:{{ form.option2 }}
+            {% if form.image2.errors %}{{ form.image2.errors }}<br />{% endif %}
+            {{ form.image2.label }}:{{ form.image2 }} <br />
+            {% if form.text2.errors %}{{ form.text2.errors }}<br />{% endif %}
+            {{ form.text2.label }}:{{ form.text2 }} <br />
+            {% if form.url2.errors %}{{ form.url2.errors }}<br />{% endif %}
+            {{ form.url2.label }}:{{ form.url2 }}
         </div>
         <div class="col-md-1"></div>
     </div> <!--row-->

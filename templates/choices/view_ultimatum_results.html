@@ -38,11 +38,25 @@ View Results
 <div class="row" id="option_container">
     <div class="col-md-1"></div>
     <div class="col-md-4" id="option1">
-        <img src='/static/assets/{{ choice.option1}}' width='500'/>
+        Option A <br />
+        {% if choice.image1 %}
+            <img src='/static/assets/{{ choice.image1 }}'/>
+        {% else %}{% if choice.text1 %}
+            {{ choice.text1 }}
+        {% else %}
+            {{ choice.url1 }}
+        {% endif %}{% endif %}
     </div>
     <div class="col-md-2"></div>
     <div class="col-md-4" id="option2">
-        <img src='/static/assets/{{ choice.option2}}' width='500'/>
+        Option B <br />
+        {% if choice.image2 %}
+            <img src='/static/assets/{{ choice.image2 }}'/>
+        {% else %}{% if choice.text2 %}
+            {{ choice.text2 }}
+        {% else %}
+            {{ choice.url2 }}
+        {% endif %}{% endif %}
     </div>
     <div class="col-md-1"></div>
     </div>

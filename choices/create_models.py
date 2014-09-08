@@ -51,8 +51,8 @@ SHARE_WITH = [x[0] for x in Choice.SHARE_WITH_CHOICES]
 for question in QUESTIONS:
     user = random.choice(SITE_USERS)
     Choice.objects.create(question=question,
-                          option1='images/uploaded_images/{}.jpg'.format(random.choice(IMAGE_URL)),
-                          option2='images/uploaded_images/{}.jpg'.format(random.choice(IMAGE_URL)),
+                          image1='images/uploaded_images/{}.jpg'.format(random.choice(IMAGE_URL)),
+                          image2='images/uploaded_images/{}.jpg'.format(random.choice(IMAGE_URL)),
                           time_limit=random.choice(TIME_LIMIT),
                           share_with=random.choice(SHARE_WITH),
                           created_by=user

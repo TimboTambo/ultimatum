@@ -5,6 +5,14 @@ from users.models import SiteUser
 # Create your models here.
 
 
+class ActiveManager(models.Manager):
+    def get_query_set(self):
+        return super(ActiveManager, self).get_query_set().filter(expired=False)
+
+class ExpiredManager(models.Manager):
+    def get_query_set(self):
+        return super(ExpiredManager, self).get_query_set().filter(expired=True)
+
 class Choice(models.Model):
     
     TIME_LIMIT_CHOICES = (
@@ -15,19 +23,28 @@ class Choice(models.Model):
 
     SHARE_WITH_CHOICES = (
     ('some', 'Select few'),
-    ('all', 'All friends')) 
+    ('all', 'All friends'),
+    ('public', 'Public')) 
 
     question = models.CharField(max_length=300, blank=False)
-    option1 = models.ImageField(blank=False, upload_to="images/uploaded_images/")
-    option2 = models.ImageField(blank=False, upload_to="images/uploaded_images/")
+    image1 = models.ImageField(blank=True, upload_to="images/uploaded_images/")
+    image2 = models.ImageField(blank=True, upload_to="images/uploaded_images/")
+    text1 = models.TextField(max_length=200, blank=True)
+    text2 = models.TextField(max_length=200, blank=True)
+    url1 = models.URLField(max_length=200, blank=True)
+    url2 = models.URLField(max_length=200, blank=True)
     time_created = models.DateTimeField(default=timezone.now())
     time_limit = models.IntegerField(choices=TIME_LIMIT_CHOICES, default=60)
     share_with = models.CharField(max_length=200, choices=SHARE_WITH_CHOICES, default='all')
     # info on related_name: http://stackoverflow.com/questions/2642613/what-is-related-name-used-for-in-django
-    share_list = models.ManyToManyField(SiteUser, related_name="choice_shared_list")
+    share_list = models.ManyToManyField(SiteUser, related_name="choice_shared_list", blank=True)
     voted_1 = models.ManyToManyField(SiteUser, related_name="choice_voted_1")
     voted_2 = models.ManyToManyField(SiteUser, related_name="choice_voted_2")
     created_by = models.ForeignKey(SiteUser, related_name="creator")
+
+    objects = models.Manager() # default Manager
+    active_set = ActiveManager()
+    expired_set = ExpiredManager()
 
     @property
     def time_remaining(self):
