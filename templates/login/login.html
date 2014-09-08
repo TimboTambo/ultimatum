@@ -17,20 +17,13 @@ Login
 {% endblock %}
 
 {% block content %}
-<form action='/accounts/auth/' method='post'>{% csrf_token %}
-	{% for field in form %}
-		{{ field.errors }}
-	{% endfor %}
-	{% for error in form.non_field_errors %}
-		{{ error }}
-	{% endfor %}
-
+<form action='/accounts/login/' method='post'>{% csrf_token %}
+	<span class="errorlist">{{ error }}</span>
 	<table><tbody>
-		{% if error %}<tr><td></td><td style="text-align: left">{{ error }}</td></tr>{% endif %}
-		<tr><td><label for='username'>User name:</label></td>
-			<td><input type='text' name='username' value='{{username}}' id='username'></td></tr>
-		<tr><td><label for='password'>Password:</label></td>
-			<td><input type='password' name='password' value='' id='password'></td></tr>
+		<tr><td>{{ form.username.label }}</td>
+			<td>{{ form.username }}</td></tr>
+		<tr><td>{{ form.password.label }}</td>
+			<td>{{ form.password }}</td></tr>
 		<tr><td></td><td><a href="/accounts/register/"><button type="button" id="register">Register</button></a>
 			<input type='submit' value='Login' /></td></tr>
 	</tbody></table>

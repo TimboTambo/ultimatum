@@ -21,13 +21,17 @@ View Choices
     Choices that you have created: <br />
     {% if user_ultimatums %}
         {% for ultimatum in user_ultimatums %}
-            <a href="/choices/view_ultimatum/{{ ultimatum.pk }}">{{ ultimatum }}</a>
-            | {{ ultimatum.time_created |date:"j F \a\t H:i" }} |
+            <a href="/choices/view_ultimatum/{{ ultimatum.pk }}">{{ ultimatum|truncatechars:40 }} |
+            {{ ultimatum.total_votes }} vote{{ ultimatum.total_votes|pluralize:",s" }} | 
+            {{ ultimatum.time_created |date:"j F \a\t H:i" }} |
             {% if ultimatum.expired %}
-                Voting closed
+                Voting closed 
+                {% if ultimatum not in siteuser.viewed_results.all %}
+                    <span class="highlight">*see results!*</span>
+                {% endif %}
             {% else %}
                 Time remaining: {{ ultimatum.time_remaining_str }}
-            {% endif %}<br />
+            {% endif %}</a><br />
         {% endfor %}
     {% else %}
         None
@@ -40,14 +44,23 @@ View Choices
     Choices that others have invited you to vote on:<br />
     {% if other_ultimatums %}
         {% for ultimatum in other_ultimatums %}
-            <a href="/choices/view_ultimatum/{{ ultimatum.pk }}">{{ ultimatum }}</a>
-            | {{ ultimatum.created_by | capfirst }} | 
+            <a href="/choices/view_ultimatum/{{ ultimatum.pk }}">{{ ultimatum|truncatechars:40 }} |
+            {{ ultimatum.total_votes }} vote{{ ultimatum.total_votes|pluralize:",s" }} | 
             {{ ultimatum.time_created |date:"j F \a\t H:i" }} |
             {% if ultimatum.expired %}
                 Voting closed
+                {% if ultimatum not in siteuser.viewed_results.all %}
+                    <span class="highlight">*see results!*</span>
+                {% endif %}
             {% else %}
                 Time remaining: {{ ultimatum.time_remaining_str }}
-            {% endif %}<br />
+                {% if ultimatum not in siteuser.viewed_current.all %}
+                    <span class="highlight">*New!*</span>
+                {% else %}{% if siteuser not in ultimatum.voted_1.all and siteuser not in ultimatum.voted_2.all %}
+                    <span class="highlight">*Not yet voted!*</span>
+                    {% endif %}
+                {% endif %}
+            {% endif %}</a><br />
         {% endfor %}
     {% else %}
         None
@@ -58,14 +71,23 @@ View Choices
     Choices that the public have invited you to vote on:<br />
     {% if public_ultimatums %}
         {% for ultimatum in public_ultimatums %}
-            <a href="/choices/view_ultimatum/{{ ultimatum.pk }}">{{ ultimatum }}</a>
-            | {{ ultimatum.created_by | capfirst }} | 
+            <a href="/choices/view_ultimatum/{{ ultimatum.pk }}">{{ ultimatum|truncatechars:40 }} |
+            {{ ultimatum.total_votes }} vote{{ ultimatum.total_votes|pluralize:",s" }} | 
             {{ ultimatum.time_created |date:"j F \a\t H:i" }} |
             {% if ultimatum.expired %}
                 Voting closed
+                {% if ultimatum not in siteuser.viewed_results.all %}
+                    <span class="highlight">*see results!*</span>
+                {% endif %}
             {% else %}
                 Time remaining: {{ ultimatum.time_remaining_str }}
-            {% endif %}<br />
+                {% if ultimatum not in siteuser.viewed_current.all %}
+                    <span class="highlight">*New!*</span>
+                {% else %}{% if siteuser not in ultimatum.voted_1.all and siteuser not in ultimatum.voted_2.all %}
+                    <span class="highlight">*Not yet voted!*</span>
+                    {% endif %}
+                {% endif %}
+            {% endif %}</a><br />
         {% endfor %}
     {% else %}
         None

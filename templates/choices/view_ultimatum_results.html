@@ -27,11 +27,11 @@ View Results
     </h2>
     {{ total_votes }} p{{ total_votes|pluralize:"erson,eople" }} voted.<br />
     Votes for A:
-    {% if votes_1 %}{{ votes_1 }}
-    {% else %}0{% endif %}<br />
+    {{ votes_1|default_if_none:"0" }}
+    {% if total_votes %}({{ votes_1|percentage:total_votes }}%){% endif %}<br />
     Votes for B: 
-    {% if votes_2 %}{{ votes_2 }}
-    {% else %}0{% endif %}<br />
+    {{ votes_2|default_if_none:"0"}}
+    {% if total_votes %}({{ votes_2|percentage:total_votes }}%){% endif %}<br />
     Question: {{ choice.question }}
 </div>
 <hr/>

@@ -1,5 +1,6 @@
 from django.contrib import auth
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from django.core.context_processors import csrf
 from django.http import Http404, HttpResponse, HttpResponseRedirect, HttpResponseNotFound
 from django.shortcuts import render_to_response, redirect, get_object_or_404
@@ -24,10 +25,17 @@ def login(request):
             username = form.cleaned_data['username']
             password = form.cleaned_data['password']
             user = auth.authenticate(username=username, password=password)
+            print "User:",user
             if user is not None:
                 auth.login(request, user)
                 return HttpResponseRedirect('/accounts/loggedin')
-        args["form"] = form
+            elif not User.objects.filter(username=username):
+                args["error"] = "Please enter a valid username or register as a new user"
+            else:
+                args["error"] = "Password incorrect"
+        else:
+            args["error"] = "Please enter both username and password"
+        args["form"] = LoginForm(initial={"username": request.POST.get('username', '')})
     else:
         args["form"] = LoginForm()
     args.update(csrf(request))
@@ -56,12 +64,12 @@ def register_user(request):
             auth.login(request, user)
             return HttpResponseRedirect('/accounts/register_success')
         else:
-            args["error"] = "The information you entered was not valid. Please try again."
             args["form"] = form
     else:
         args['form'] = RegistrationForm()
     args.update(csrf(request))
     return render_to_response('login/register.html', args)
+
 
 def register_success(request):
     return render_to_response('login/register_success.html')

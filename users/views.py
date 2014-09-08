@@ -10,7 +10,7 @@ from users.models import SiteUser
 from users.forms import FriendSelectForm
 
 @login_required
-def add_friends(request):
+def update_friends(request):
     args = {}
     this_user = request.user.siteuser
     if request.method == 'POST':
@@ -26,4 +26,4 @@ def add_friends(request):
     else:
         args['form'] = FriendSelectForm(user=this_user, initial={"friends":this_user.friends.all()})
     args.update(csrf(request))
-    return render_to_response('users/add_friends.html', args)
+    return render_to_response('users/update_friends.html', args)

@@ -3,7 +3,7 @@
 {% load template_library %}
 
 {% block extra_css %}
-  <link type="text/css" rel="stylesheet" href="{% static "assets/css/add_friends.css" %}"/>
+  <link type="text/css" rel="stylesheet" href="{% static "assets/css/update_friends.css" %}"/>
 {% endblock %}
 
 {% block title %}
@@ -15,7 +15,7 @@ Update Friends
 {% endblock %}
 
 {% block content %}
-<form id = 'friend_form' action="/users/add_friends/" method="post" enctype='multipart/form-data'>{% csrf_token %}
+<form id = 'friend_form' action="/users/update_friends/" method="post" enctype='multipart/form-data'>{% csrf_token %}
     {{ form.friends }}
     <input type='submit' value='update' id='submit'/>
 </form>

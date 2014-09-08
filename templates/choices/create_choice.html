@@ -19,7 +19,7 @@ Create your choice
 
     <div class="row" id="question_container">
         {% if form.non_field_errors %}{{ form.non_field_errors }}<br />{% endif %}
-        {% if form.question.errors %}{{ form.question.errors }}<br />{% endif %}
+        {% if form.question.errors %}{{ form.question.errors }}{% endif %}
         {{ form.question.label }}:{{ form.question }}
     </div> <!--row-->
     <hr />
@@ -74,7 +74,7 @@ Create your choice
     <div class="row" id="time_container">
         <div class="col-md-3"></div>
         <div class="col-md-6" id="timer">
-            {{ form.time_limit.errors }}
+            {% if form.time_limit.errors %}{{ form.time_limit.errors }}{% endif %}
             {{ form.time_limit.label }}:{{ form.time_limit }}
         </div>
         <div class="col-md-3"></div>
@@ -83,7 +83,7 @@ Create your choice
     <div class="row" id="share_with_container">
         <div class="col-md-3"></div>
         <div class="col-md-6" id="share_with">
-            {{ form.share_with.errors }}
+            {% if form.share_with.errors %}{{ form.share_with.errors }}{% endif %}
             {{ form.share_with.label }}:{{ form.share_with }}
         </div>
         <div class="col-md-3"></div>
@@ -92,7 +92,7 @@ Create your choice
     <div class="row" id="share_list_container">
         <div class="col-md-3"></div>
         <div class="col-md-6" id="share_list">
-            {{ form.share_list.errors }}
+            {% if form.share_list.errors %}{{ form.share_list.errors }}{% endif %}
             {{ form.share_list }}
         </div>
         <div class="col-md-3"></div>

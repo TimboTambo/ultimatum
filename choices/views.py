@@ -45,8 +45,9 @@ def view_ultimatums(request):
     args = {}
     this_user = request.user.siteuser
     args['user_ultimatums'] = sorted(Choice.objects.filter(created_by=this_user), key=sort)
-    args['other_ultimatums'] = sorted(Choice.objects.filter(share_list=this_user), key=sort)
+    args['other_ultimatums'] = sorted(Choice.objects.filter(share_list=this_user).exclude(created_by=this_user).exclude(share_with="public"), key=sort)
     args['public_ultimatums'] = sorted(Choice.objects.filter(share_with="public").exclude(created_by=this_user), key=sort)
+    args['siteuser'] = this_user
     return render_to_response('choices/view_ultimatums.html', args)
 
 
@@ -84,12 +85,14 @@ def view_ultimatum(request, id=None):
     if this_choice.expired:
         args['votes_1'] = len(this_choice.voted_1.all())
         args['votes_2'] = len(this_choice.voted_2.all())
-        args['total_votes'] = args['votes_1'] + args['votes_2']
+        args['total_votes'] = this_choice.total_votes
         args['commentsA'] = this_choice.comment_set.filter(choice__voted_1 = F('user'))
         args['commentsB'] = this_choice.comment_set.filter(choice__voted_2 = F('user'))
+        this_user.viewed_results.add(this_choice)
         return render_to_response('choices/view_ultimatum_results.html', args)
 
     if not (this_choice.created_by==this_user):
+        this_user.viewed_current.add(this_choice)
         if (this_user in this_choice.share_list.all()):
             if (this_user not in this_choice.voted_1.all() and 
                 this_user not in this_choice.voted_2.all()):

@@ -16,3 +16,13 @@ def cut(value, arg):
 def lower2(value):
     "Converts a string to lowercase"
     return value.lower()
+
+@register.filter
+def percentage(value, arg):
+    "Returns value as a percentage of arg"
+    try:
+        numerator = float(value)
+        denominator = float(arg)
+    except ValueError:
+        return "ValueError"
+    return str(int(round(numerator/denominator*100)))

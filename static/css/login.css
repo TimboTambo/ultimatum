@@ -5,14 +5,17 @@
     font-weight: bold;
 }
 
-
 table {
     position: relative;
+    table-layout: fixed;
     margin: auto;
 }
-
 
 input {
     padding-left: 4px;
     font-weight: bold;
+}
+
+td {
+    word-wrap:break-word
 }

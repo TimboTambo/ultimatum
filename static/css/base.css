@@ -25,6 +25,19 @@ border: 3px solid #FF7D0F;
 input {
 color: #323130;
 background-color: #FF7D0F;
+border: 0px;
+}
+input[type="file"] {
+    text-align: right;
+}
+
+textarea {
+color: #323130;
+background-color: #FF7D0F;
+}
+
+.errorlist {
+    color: red;
 }
 #navbar button {
 margin-left: 10px;

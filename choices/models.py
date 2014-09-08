@@ -2,7 +2,7 @@ from django.db import models
 from django.utils import timezone
 
 from users.models import SiteUser
-# Create your models here.
+
 
 
 class ActiveManager(models.Manager):
@@ -64,12 +64,15 @@ class Choice(models.Model):
         else:
             return "{} minutes".format(str(time_remaining))
 
-
     @property
     def expired(self):
         if self.time_remaining < 0:
             return True
         return False
+
+    @property
+    def total_votes(self):
+        return len(self.voted_1.all()) + len(self.voted_2.all())
 
     class Meta:
         ordering = ('time_created',)

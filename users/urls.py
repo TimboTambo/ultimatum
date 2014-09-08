@@ -3,5 +3,5 @@ import users
 
 
 urlpatterns = patterns('users.views',
-    url(r'^add_friends/', 'add_friends'),
+    url(r'^update_friends/', 'update_friends'),
 )
