@@ -2,6 +2,10 @@ img {
     width: 500px;
 }
 
+.upload_field {
+    display: none;
+}
+
 #option1, #option2 {
     height: 600px;
     border: 2px solid #FF7D0F;

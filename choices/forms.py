@@ -22,16 +22,18 @@ class ChoiceForm(ModelForm):
         }
         labels = {
             'question': _('Question'),
-            'image1': _('Option A'),
-            'image2': _('Option B'),
-            'time_limit': _('Time Limit'),
+            'image1': _('Image'),
+            'text1': _('Text'),
+            'url1': _('URL'),
+            'image2': _('Image'),
+            'text2': _('Text'),
+            'url2': _('URL'),
+            'time_limit': _('Time limit'),
+            'share_with': _('Share with'),
         }
 
     def clean(self, *args, **kwargs):
         super(ChoiceForm, self).clean(*args, **kwargs)
-        print "Cleaned data:",self.cleaned_data
-        #print "Non field errors:", self.non_field_errors()
-        print "Field errors:", self.errors
         image1 = self.cleaned_data["image1"]
         text1 = self.cleaned_data["text1"]
         url1 = self.cleaned_data["url1"]
@@ -46,6 +48,8 @@ class ChoiceForm(ModelForm):
         if not (image2 or text2 or url2):
             raise forms.ValidationError("Please enter something for Option B")
 
+        if self.cleaned_data["share_with"] == "public":
+            self.cleaned_data["share_list"] == []
         return self.cleaned_data
 
 class VoteForm(forms.Form):

@@ -27,22 +27,47 @@ Create your choice
     <div class="row" id="option_container">
         <div class="col-md-1"></div>
         <div class="col-md-4" id="option1">
+        Option A:
+        <div id="format_buttons1">
+            Format: 
+            <button type="button" id="image1_button">Image</button>
+            <button type="button" id="text1_button">Text</button> 
+            <button type="button" id="url1_button">URL</button>
+        </div>
+        <div id="image1" class="upload_field">
             {% if form.image1.errors %}{{ form.image1.errors }}<br />{% endif %}
             {{ form.image1.label }}:{{ form.image1 }} <br />
+        </div>
+        <div id="text1" class="upload_field">
             {% if form.text1.errors %}{{ form.text1.errors }}<br />{% endif %}
             {{ form.text1.label }}:{{ form.text1 }} <br />
+        </div>
+        <div id="url1" class="upload_field">
             {% if form.url1.errors %}{{ form.url1.errors }}<br />{% endif %}
             {{ form.url1.label }}:{{ form.url1 }}
         </div>
+        </div> <!--option container-->
         <div class="col-md-2"></div>
         <div class="col-md-4" id="option2">
+        Option B:
+        <div id="format_buttons2">
+            <button type="button" id="image2_button">Image</button>
+            <button type="button" id="text2_button">Text</button>
+            <button type="button" id="url2_button">URL</button>
+        </div>
+        <div id="image2" class="upload_field">
             {% if form.image2.errors %}{{ form.image2.errors }}<br />{% endif %}
             {{ form.image2.label }}:{{ form.image2 }} <br />
+        </div>
+        <div id="text2" class="upload_field">
             {% if form.text2.errors %}{{ form.text2.errors }}<br />{% endif %}
             {{ form.text2.label }}:{{ form.text2 }} <br />
+        </div>
+        <div id="url2" class="upload_field">
             {% if form.url2.errors %}{{ form.url2.errors }}<br />{% endif %}
             {{ form.url2.label }}:{{ form.url2 }}
         </div>
+        </div><!--option2 container-->
         <div class="col-md-1"></div>
     </div> <!--row-->
 
@@ -68,7 +93,7 @@ Create your choice
         <div class="col-md-3"></div>
         <div class="col-md-6" id="share_list">
             {{ form.share_list.errors }}
-            {{ form.share_list.label }}:{{ form.share_list }}
+            {{ form.share_list }}
         </div>
         <div class="col-md-3"></div>
     </div> <!--row-->
@@ -83,7 +108,29 @@ Create your choice
 
 
 {% block scripts %}
-<script>
+<script id="format_display">
+$('#image1_button').click(function() {
+    $('#image1').toggle(200)
+});
+$('#text1_button').click(function() {
+    $('#text1').toggle(200)
+});
+$('#url1_button').click(function() {
+    $('#url1').toggle(200)
+});
+$('#image2_button').click(function() {
+    $('#image2').toggle(200)
+});
+$('#text2_button').click(function() {
+    $('#text2').toggle(200)
+});
+$('#url2_button').click(function() {
+    $('#url2').toggle(200)
+});
+
+</script>
+
+<script id="show_friends">
 /* Shows friend list if user selects that they only want to share with some*/
 $('#id_share_with').click(function() {
     if($(this).val()=="some") {

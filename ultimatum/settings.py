@@ -85,16 +85,16 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
-MEDIA_ROOT = '/home/tim/pythonlink/ultimatum/ultimatum/static/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'static')
 MEDIA_URL = '/media/'
 STATIC_URL = '/static/'
-STATIC_ROOT = "/home/tim/pythonlink/ultimatum/ultimatum/"
+STATIC_ROOT = BASE_DIR
 TEMPLATE_DIRS = (
-    "/home/tim/pythonlink/ultimatum/ultimatum/templates/",
+    os.path.join(BASE_DIR, "templates")
     )
 
 STATICFILES_DIRS = (
-    ('assets', '/home/tim/pythonlink/ultimatum/ultimatum/static/'),
+    ('assets', MEDIA_ROOT),
 )
 
 REST_FRAMEWORK = {

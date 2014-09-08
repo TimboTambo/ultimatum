@@ -1,0 +1,5 @@
+*.db
+*.sqlite
+*.pyc
+ultimatum/local_tim*
+static/images/uploaded_images/*

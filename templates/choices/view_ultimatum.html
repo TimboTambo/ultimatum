@@ -27,23 +27,27 @@ View Choice
     <div class="col-md-4" id="option1">
         Option A <br />
         {% if choice.image1 %}
-            <img src='/static/assets/{{ choice.image1 }}'/>
-        {% else %}{% if choice.text1 %}
-            {{ choice.text1 }}
-        {% else %}
-            {{ choice.url1 }}
-        {% endif %}{% endif %}
+            <img src='/static/assets/{{ choice.image1 }}'/><br />
+        {% endif %}
+        {% if choice.text1 %}
+            {{ choice.text1 }}<br />
+        {% endif %}
+        {% if choice.url1 %}
+            <a href="{{ choice.url1 }}">{{ choice.url1 }}</a>
+        {% endif %}
     </div>
     <div class="col-md-2"></div>
     <div class="col-md-4" id="option2">
         Option B <br />
         {% if choice.image2 %}
-            <img src='/static/assets/{{ choice.image2 }}'/>
-        {% else %}{% if choice.text2 %}
-            {{ choice.text2 }}
-        {% else %}
-            {{ choice.url2 }}
-        {% endif %}{% endif %}
+            <img src='/static/assets/{{ choice.image2 }}'/><br />
+        {% endif %}
+        {% if choice.text2 %}
+            {{ choice.text2 }}<br />
+        {% endif %}
+        {% if choice.url2 %}
+            <a href="{{ choice.url2 }}">{{ choice.url2 }}</a>
+        {% endif %}
     </div>
     <div class="col-md-1"></div>
 </div> <!--row-->

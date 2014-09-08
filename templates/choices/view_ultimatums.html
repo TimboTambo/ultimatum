@@ -19,31 +19,57 @@ View Choices
 {% if user_ultimatums %}
 <div id="user_created">
     Choices that you have created: <br />
-    {% for ultimatum in user_ultimatums %}
-        <a href="/choices/view_ultimatum/{{ ultimatum.pk }}">{{ ultimatum }}</a>
-        | {{ ultimatum.time_created |date:"j F \a\t H:i" }} |
-        {% if ultimatum.expired %}
-            Voting closed
-        {% else %}
-            Time remaining: {{ ultimatum.time_remaining_str }}
-        {% endif %}<br />
-    {% endfor %}
+    {% if user_ultimatums %}
+        {% for ultimatum in user_ultimatums %}
+            <a href="/choices/view_ultimatum/{{ ultimatum.pk }}">{{ ultimatum }}</a>
+            | {{ ultimatum.time_created |date:"j F \a\t H:i" }} |
+            {% if ultimatum.expired %}
+                Voting closed
+            {% else %}
+                Time remaining: {{ ultimatum.time_remaining_str }}
+            {% endif %}<br />
+        {% endfor %}
+    {% else %}
+        None
+    {% endif %}
 </div>
 <br />
 {% endif %}
 {% if other_ultimatums %}
 <div id="other_created">
-    Choices that others have invited you to vote on:<br /> 
-    {% for ultimatum in other_ultimatums %}
-        <a href="/choices/view_ultimatum/{{ ultimatum.pk }}">{{ ultimatum }}</a>
-        | {{ ultimatum.created_by | capfirst }} | 
-        {{ ultimatum.time_created |date:"j F \a\t H:i" }} |
-        {% if ultimatum.expired %}
-            Voting closed
-        {% else %}
-            Time remaining: {{ ultimatum.time_remaining_str }}
-        {% endif %}<br />
-    {% endfor %}
+    Choices that others have invited you to vote on:<br />
+    {% if other_ultimatums %}
+        {% for ultimatum in other_ultimatums %}
+            <a href="/choices/view_ultimatum/{{ ultimatum.pk }}">{{ ultimatum }}</a>
+            | {{ ultimatum.created_by | capfirst }} | 
+            {{ ultimatum.time_created |date:"j F \a\t H:i" }} |
+            {% if ultimatum.expired %}
+                Voting closed
+            {% else %}
+                Time remaining: {{ ultimatum.time_remaining_str }}
+            {% endif %}<br />
+        {% endfor %}
+    {% else %}
+        None
+    {% endif %}
+</div>
+<br />
+<div id="public">
+    Choices that the public have invited you to vote on:<br />
+    {% if public_ultimatums %}
+        {% for ultimatum in public_ultimatums %}
+            <a href="/choices/view_ultimatum/{{ ultimatum.pk }}">{{ ultimatum }}</a>
+            | {{ ultimatum.created_by | capfirst }} | 
+            {{ ultimatum.time_created |date:"j F \a\t H:i" }} |
+            {% if ultimatum.expired %}
+                Voting closed
+            {% else %}
+                Time remaining: {{ ultimatum.time_remaining_str }}
+            {% endif %}<br />
+        {% endfor %}
+    {% else %}
+        None
+    {% endif %}
 </div>
 {% endif %}
 {% endblock %}

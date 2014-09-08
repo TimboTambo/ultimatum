@@ -1,7 +1,7 @@
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
 from django.core.context_processors import csrf
-from django.db.models import F
+from django.db.models import F, Q
 from django.http import Http404, HttpResponse, HttpResponseRedirect, HttpResponseNotFound
 from django.shortcuts import render_to_response, redirect, get_object_or_404
 from django.template import Context
@@ -23,7 +23,7 @@ def create_choice(request):
             choice.time_created = timezone.now()
             choice.save()
             # m2m needs to be saved manually after a partial save of instance:
-            #https://docs.djangoproject.com/en/dev/topics/forms/modelforms/#the-save-method
+            # https://docs.djangoproject.com/en/dev/topics/forms/modelforms/#the-save-method
             form.save_m2m()
             return HttpResponseRedirect('/choices/submitted/')
         else:
@@ -46,6 +46,7 @@ def view_ultimatums(request):
     this_user = request.user.siteuser
     args['user_ultimatums'] = sorted(Choice.objects.filter(created_by=this_user), key=sort)
     args['other_ultimatums'] = sorted(Choice.objects.filter(share_list=this_user), key=sort)
+    args['public_ultimatums'] = sorted(Choice.objects.filter(share_with="public").exclude(created_by=this_user), key=sort)
     return render_to_response('choices/view_ultimatums.html', args)
 
 
@@ -83,6 +84,7 @@ def view_ultimatum(request, id=None):
     if this_choice.expired:
         args['votes_1'] = len(this_choice.voted_1.all())
         args['votes_2'] = len(this_choice.voted_2.all())
+        args['total_votes'] = args['votes_1'] + args['votes_2']
         args['commentsA'] = this_choice.comment_set.filter(choice__voted_1 = F('user'))
         args['commentsB'] = this_choice.comment_set.filter(choice__voted_2 = F('user'))
         return render_to_response('choices/view_ultimatum_results.html', args)

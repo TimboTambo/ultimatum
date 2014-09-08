@@ -25,6 +25,7 @@ View Results
         {% endif %}
     {% endif %}
     </h2>
+    {{ total_votes }} p{{ total_votes|pluralize:"erson,eople" }} voted.<br />
     Votes for A:
     {% if votes_1 %}{{ votes_1 }}
     {% else %}0{% endif %}<br />
@@ -37,49 +38,55 @@ View Results
 
 <div class="row" id="option_container">
     <div class="col-md-1"></div>
-    <div class="col-md-4" id="option1">
+     <div class="col-md-4" id="option1">
         Option A <br />
         {% if choice.image1 %}
-            <img src='/static/assets/{{ choice.image1 }}'/>
-        {% else %}{% if choice.text1 %}
-            {{ choice.text1 }}
-        {% else %}
-            {{ choice.url1 }}
-        {% endif %}{% endif %}
+            <img src='/static/assets/{{ choice.image1 }}'/><br />
+        {% endif %}
+        {% if choice.text1 %}
+            {{ choice.text1 }}<br />
+        {% endif %}
+        {% if choice.url1 %}
+            <a href="{{ choice.url1 }}">{{ choice.url1 }}</a>
+        {% endif %}
     </div>
     <div class="col-md-2"></div>
     <div class="col-md-4" id="option2">
         Option B <br />
         {% if choice.image2 %}
-            <img src='/static/assets/{{ choice.image2 }}'/>
-        {% else %}{% if choice.text2 %}
-            {{ choice.text2 }}
-        {% else %}
-            {{ choice.url2 }}
-        {% endif %}{% endif %}
+            <img src='/static/assets/{{ choice.image2 }}'/><br />
+        {% endif %}
+        {% if choice.text2 %}
+            {{ choice.text2 }}<br />
+        {% endif %}
+        {% if choice.url2 %}
+            <a href="{{ choice.url2 }}">{{ choice.url2 }}</a>
+        {% endif %}
     </div>
     <div class="col-md-1"></div>
     </div>
 </div> <!--row-->
+<hr />
 <div class="row" id="comments_container">
     <div class="col-md-4"></div>
     <div class="col-md-4" id="comments">
-        {% if commentsA or commentsB %}
         <h2 style="text-align: center">Comments</h2>
-            {% if commentsA %}
-            Voted for A: <br/>
-            {% for comment in commentsA %}
-                {{ comment.content }}<br/>
-                {{ comment.user | capfirst }}, {{ comment.time_created }}<br/><br/>
-            {% endfor %}
-            {% endif %}
-            {% if commentsB %}
-            Voted for B: <br/>
-            {% for comment in commentsB %}
-                {{ comment.content }}<br/>
-                {{ comment.user | capfirst }}, {{ comment.time_created|date:"j F \a\t H:i" }}<br/><br/>
-            {% endfor %}
-            {% endif %}
+        {% if commentsA %}
+        Voted for A: <br/>
+        {% for comment in commentsA %}
+            {{ comment.content }}<br/>
+            {{ comment.user | capfirst }}, {{ comment.time_created }}<br/><br/>
+        {% endfor %}
+        {% endif %}
+        {% if commentsB %}
+        Voted for B: <br/>
+        {% for comment in commentsB %}
+            {{ comment.content }}<br/>
+            {{ comment.user | capfirst }}, {{ comment.time_created|date:"j F \a\t H:i" }}<br/><br/>
+        {% endfor %}
+        {% endif %}
+        {% if not commentsA and not commentsB %}
+            No comments to show.
         {% endif %}
     </div>
     <div class="col-md-4"></div>
