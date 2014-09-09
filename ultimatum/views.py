@@ -62,14 +62,10 @@ def register_user(request):
             password = form.cleaned_data['password1']
             user = auth.authenticate(username=username, password=password)
             auth.login(request, user)
-            return HttpResponseRedirect('/accounts/register_success')
+            return HttpResponseRedirect('/users/update_friends')
         else:
             args["form"] = form
     else:
         args['form'] = RegistrationForm()
     args.update(csrf(request))
     return render_to_response('login/register.html', args)
-
-
-def register_success(request):
-    return render_to_response('login/register_success.html')

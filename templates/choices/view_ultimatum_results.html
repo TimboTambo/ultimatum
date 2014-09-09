@@ -16,7 +16,7 @@ View Results
 {% block content %}
 <div class="row" id="question_container">
     Voting on this ultimatum question has now closed.<br />
-    Results: <br />
+    <h3>Results:</h3>
     <h2>
     {% if votes_1 > votes_2 %}Option A Won!
     {% else %} 
@@ -33,6 +33,22 @@ View Results
     {{ votes_2|default_if_none:"0"}}
     {% if total_votes %}({{ votes_2|percentage:total_votes }}%){% endif %}<br />
     Question: {{ choice.question }}
+
+    {% if form3 %}     
+        <form id='accepted_form' action="/choices/view_ultimatum/{{ choice.pk }}" method="post">{% csrf_token %}
+            Which option will you go for: {{ form3.accepted }}<br/>
+            <input type='submit' value='submit' id='submit'/>
+        </form>
+    {% endif %}
+    {% if choice.accepted %}
+        <br />
+        {% if choice.created_by == siteuser %}
+            You 
+        {% else %}
+            The owner of this question
+        {% endif %}
+        decided to go for Option {{ choice.accepted }}.
+    {% endif %}
 </div>
 <hr/>
 
@@ -68,28 +84,35 @@ View Results
 </div> <!--row-->
 <hr />
 <div class="row" id="comments_container">
-    <div class="col-md-4"></div>
-    <div class="col-md-4" id="comments">
-        <h2 style="text-align: center">Comments</h2>
+    <div class="col-md-1"></div>
+    <div class="col-md-4 comments">
+        <br /><br /><br />
+        <h3>Voted for A:</h3> <br/>
         {% if commentsA %}
-        Voted for A: <br/>
-        {% for comment in commentsA %}
-            {{ comment.content }}<br/>
-            {{ comment.user | capfirst }}, {{ comment.time_created }}<br/><br/>
-        {% endfor %}
-        {% endif %}
-        {% if commentsB %}
-        Voted for B: <br/>
-        {% for comment in commentsB %}
-            {{ comment.content }}<br/>
-            {{ comment.user | capfirst }}, {{ comment.time_created|date:"j F \a\t H:i" }}<br/><br/>
-        {% endfor %}
-        {% endif %}
-        {% if not commentsA and not commentsB %}
-            No comments to show.
+            {% for comment in commentsA %}
+                {{ comment.content }}<br/>
+                {{ comment.user | capfirst }}, {{ comment.time_created }}<br/><br/>
+            {% endfor %}
+        {% else %}
+            None
         {% endif %}
     </div>
-    <div class="col-md-4"></div>
+    <div class="col-md-2 comments">
+        <h2 style="text-align: center">Comments</h2>
+    </div>
+    <div class="col-md-4 comments">
+        <br /><br /><br />
+        <h3>Voted for B:</h3> <br/>
+        {% if commentsB %}
+            {% for comment in commentsB %}
+                {{ comment.content }}<br/>
+                {{ comment.user | capfirst }}, {{ comment.time_created }}<br/><br/>
+            {% endfor %}
+        {% else %}
+            None
+        {% endif %}
+    </div>
+    <div class="col-md-1"></div>
 </div> <!--row-->
 {% endblock %}
 

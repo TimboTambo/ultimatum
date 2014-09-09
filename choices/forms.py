@@ -63,3 +63,6 @@ class CommentForm(ModelForm):
         widgets = {
             'content': forms.Textarea(attrs={'rows':2, 'cols':20}),
         }
+
+class AcceptedForm(forms.Form):
+    accepted = forms.ChoiceField(choices=(("A", "Option A"), ("B", "Option B")))

@@ -41,7 +41,7 @@ class Choice(models.Model):
     voted_1 = models.ManyToManyField(SiteUser, related_name="choice_voted_1")
     voted_2 = models.ManyToManyField(SiteUser, related_name="choice_voted_2")
     created_by = models.ForeignKey(SiteUser, related_name="creator")
-
+    accepted = models.CharField(max_length=10, blank=True)
     objects = models.Manager() # default Manager
     active_set = ActiveManager()
     expired_set = ExpiredManager()

@@ -8,7 +8,7 @@ from django.template import Context
 from django.template.loader import get_template
 
 from choices.models import Choice, Comment
-from choices.forms import ChoiceForm, VoteForm, CommentForm
+from choices.forms import ChoiceForm, VoteForm, CommentForm, AcceptedForm
 
 
 @login_required
@@ -62,10 +62,11 @@ def view_ultimatum(request, id=None):
     args = {}
     this_user = request.user.siteuser
     this_choice = get_object_or_404(Choice, pk=id)
+    args['siteuser'] = this_user
     args['choice'] = this_choice
 
     if (request.method == 'POST' and this_user not in this_choice.voted_1.all()
-        and this_user not in this_choice.voted_2.all()):
+        and this_user not in this_choice.voted_2.all() and this_choice.created_by != this_user):
         form = VoteForm(request.POST)
         form2 = CommentForm(request.POST)
         if form.is_valid():
@@ -89,6 +90,15 @@ def view_ultimatum(request, id=None):
         args['commentsA'] = this_choice.comment_set.filter(choice__voted_1 = F('user'))
         args['commentsB'] = this_choice.comment_set.filter(choice__voted_2 = F('user'))
         this_user.viewed_results.add(this_choice)
+        if this_choice.created_by == this_user and not this_choice.accepted:
+            if request.method == 'POST':
+                form = AcceptedForm(request.POST)
+                if form.is_valid():
+                    this_choice.accepted = form.cleaned_data['accepted']
+                    this_choice.save()
+            else:
+                args['form3'] = AcceptedForm()
+                args.update(csrf(request))
         return render_to_response('choices/view_ultimatum_results.html', args)
 
     if not (this_choice.created_by==this_user):
@@ -108,4 +118,4 @@ def view_ultimatum(request, id=None):
 
 
     args.update(csrf(request))
-    return render_to_response('choices/view_ultimatum.html', args)    
+    return render_to_response('choices/view_ultimatum.html', args)

@@ -3,6 +3,10 @@ img {
     width: 500px;
 }
 
+.comments {
+    text-align: center;
+}
+
 .highlight {
     color: red;
 }

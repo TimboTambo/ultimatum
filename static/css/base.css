@@ -2,6 +2,7 @@ body {
 color: #FF7D0F;
 background-color: #323130;
 }
+
 button, input[type="submit"] {
 color: #323130;
 background-color: #FF7D0F;
@@ -14,6 +15,7 @@ font-weight: bold;
 border: 2px solid #FF7D0F;
 border-radius: 8px;
 }
+
 button:hover, input[type="submit"]:hover {
 color: #FF7D0F;
 background-color: #323130;
@@ -22,10 +24,12 @@ border: 2px solid #FF7D0F;
 hr {
 border: 3px solid #FF7D0F;
 }
+
 input {
 color: #323130;
 background-color: #FF7D0F;
 border: 0px;
+margin: 4px;
 }
 input[type="file"] {
     text-align: right;

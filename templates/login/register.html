@@ -18,6 +18,7 @@ Register
 
 {% block content %}
 <div id="register_table">
+    Passwords must be at least 6 characters long and contain <br />at least one uppercase letter and one number or symbol
     <form action='/accounts/register/' method='post'>{% csrf_token %}
         {% if error %}{{ error }}{% endif %}
         {% for error in form.non_field_errors %}
@@ -27,7 +28,7 @@ Register
             {{ field.errors }}
         {% endfor %}
         <table><tbody>
-            <tr><td>{{ form.username.label }}</td><td>{{ form.username }}</td></tr>
+            <tr><td>{{ form.username.label }}:</td><td>{{ form.username }}</td></tr>
             <tr><td>{{ form.email.label }}:</td><td>{{ form.email }}</td></tr>
             <tr><td>{{ form.password1.label }}:</td><td>{{ form.password1 }}</td></tr>
             <tr><td>{{ form.password2.label }}:</td><td>{{ form.password2 }}</td></tr>
